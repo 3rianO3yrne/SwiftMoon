@@ -7,20 +7,19 @@
 
 import Foundation
 
-@available(macOS 13, *)
 extension SwiftMoon {
 
     public struct LunationPeriod: Equatable, Hashable {
-        var lunationNumber: Int
-        var lunationStartDate: Date
-        var lunationEndDate: Date
+        public let lunationNumber: Int
+        public let lunationStartDate: Date
+        public let lunationEndDate: Date
 
         static func getStartDate() -> Date {
             return DateComponents(
                 calendar: Calendar(
                     identifier: .gregorian
                 ),
-                timeZone: .gmt,
+                timeZone: TimeZone(identifier: "GMT"),
                 year: 2000,
                 month: 1,
                 day: 6,
@@ -89,7 +88,7 @@ extension SwiftMoon {
             let endOfDay = calendar.startOfDay(for: nextDayDate)
 
             let selectedDate = calendar.dateComponents(
-                in: TimeZone.gmt,
+                in: TimeZone(identifier: "GMT")!,
                 from: endOfDay
             )
 
