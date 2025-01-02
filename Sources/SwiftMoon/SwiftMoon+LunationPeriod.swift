@@ -29,7 +29,9 @@ extension SwiftMoon {
 
         }
 
-        static func getLunarMonthPeriodDateComponents(backwards: Bool = false)
+        public static func getLunarMonthPeriodDateComponents(
+            backwards: Bool = false
+        )
             -> DateComponents
         {
 
