@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(macOS 10.15, *)
 extension SwiftMoon {
 
     public struct LunationPeriod: Equatable, Hashable {
@@ -35,9 +36,9 @@ extension SwiftMoon {
             -> DateComponents
         {
 
-            let lunarCycleDays = (backwards ? -1 : 1) * 29
-            let lunarCycleSeconds = (backwards ? -1 : 1) * 45842
-            let lunarCycleNanoseconds = (backwards ? -1 : 1) * 980_000_000
+            let lunarCycleDays: Int = (backwards ? -1 : 1) * 29
+            let lunarCycleSeconds: Int = (backwards ? -1 : 1) * 45842
+            let lunarCycleNanoseconds: Int = (backwards ? -1 : 1) * 980_000_000
 
             return DateComponents(
                 day: lunarCycleDays,
@@ -51,15 +52,15 @@ extension SwiftMoon {
         }
 
         static func getLunationInterval() -> TimeInterval {
-            let knownNewMoon = LunationPeriod.getStartDate()
-            let lunarMonthComponent =
+            let knownNewMoon: Date = LunationPeriod.getStartDate()
+            let lunarMonthComponent: DateComponents =
                 LunationPeriod.getLunarMonthPeriodDateComponents(
                     backwards: false)
-            let lunationDate = Calendar(identifier: .gregorian).date(
+            let lunationDate: Date? = Calendar(identifier: .gregorian).date(
                 byAdding: lunarMonthComponent,
                 to: knownNewMoon)
 
-            let moonTime = lunationDate!.timeIntervalSince(knownNewMoon)
+            let moonTime: TimeInterval = lunationDate!.timeIntervalSince(knownNewMoon)
             return moonTime
         }
 
@@ -69,11 +70,11 @@ extension SwiftMoon {
             -> Date
         {
 
-            let lunarMonthComponent =
+            let lunarMonthComponent: DateComponents =
                 LunationPeriod.getLunarMonthPeriodDateComponents(
                     backwards: backwards)
 
-            let lunationDate = Calendar(identifier: .gregorian).date(
+            let lunationDate: Date? = Calendar(identifier: .gregorian).date(
                 byAdding: lunarMonthComponent,
                 to: startingPeriod)
 
@@ -81,41 +82,41 @@ extension SwiftMoon {
         }
 
         static func getLunationPeriods(currentDate: Date) -> [LunationPeriod] {
-            let calendar = Calendar.current
-            let knownNewMoon = LunationPeriod.getStartDate()
+            let calendar: Calendar = Calendar.current
+            let knownNewMoon: Date = LunationPeriod.getStartDate()
 
             // get end of day date
-            let nextDayDate = calendar.date(
+            let nextDayDate: Date = calendar.date(
                 byAdding: .day, value: 1, to: currentDate)!
-            let endOfDay = calendar.startOfDay(for: nextDayDate)
+            let endOfDay: Date = calendar.startOfDay(for: nextDayDate)
 
-            let selectedDate = calendar.dateComponents(
+            let selectedDate: DateComponents = calendar.dateComponents(
                 in: TimeZone(identifier: "GMT")!,
                 from: endOfDay
             )
 
-            var newMoonDateIteration = knownNewMoon
-            var lunationCount = 0
+            var newMoonDateIteration: Date = knownNewMoon
+            var lunationCount: Int = 0
 
             var lunations: [LunationPeriod] = []
 
-            let isBackwardDateIteration =
+            let isBackwardDateIteration: Bool =
                 newMoonDateIteration > selectedDate.date!
 
-            let lunarMonthComponent =
+            let lunarMonthComponent: DateComponents =
                 LunationPeriod.getLunarMonthPeriodDateComponents(
                     backwards: isBackwardDateIteration)
 
             if isBackwardDateIteration {
-                var lunationCount = -1
+                var lunationCount: Int = -1
                 while newMoonDateIteration > selectedDate.date! {
 
-                    let moonStartDate = Calendar(identifier: .gregorian).date(
+                    let moonStartDate: Date = Calendar(identifier: .gregorian).date(
                         byAdding: lunarMonthComponent,
                         to: newMoonDateIteration
                     )!
 
-                    let lunation =
+                    let lunation: SwiftMoon.LunationPeriod =
                         LunationPeriod(
                             lunationNumber: lunationCount,  // decreases after each loop
                             lunationStartDate: moonStartDate,
@@ -134,12 +135,12 @@ extension SwiftMoon {
 
                 while newMoonDateIteration < selectedDate.date! {
 
-                    let moonEndDate = Calendar(identifier: .gregorian).date(
+                    let moonEndDate: Date = Calendar(identifier: .gregorian).date(
                         byAdding: lunarMonthComponent,
                         to: newMoonDateIteration
                     )!
 
-                    let lunation = LunationPeriod(
+                    let lunation: SwiftMoon.LunationPeriod = LunationPeriod(
                         lunationNumber: lunationCount,  // increases after each loop
                         lunationStartDate: newMoonDateIteration,
                         lunationEndDate: moonEndDate)

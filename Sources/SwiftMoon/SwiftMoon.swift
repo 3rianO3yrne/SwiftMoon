@@ -3,6 +3,7 @@
 
 import Foundation
 
+@available(macOS 10.15, *)
 public enum SwiftMoon {
 
     /// Get the Meeus inspired "close enough" LunationPeriod
