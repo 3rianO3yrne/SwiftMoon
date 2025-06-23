@@ -10,7 +10,7 @@ SwiftMoon is a Swift package for calculating the current lunation period, which 
 Add SwiftMoon to your `Package.swift` dependencies:
 
 ```swift
-.package(url: "https://github.com/yourusername/SwiftMoon.git", from: "1.0.0")
+.package(url: "https://github.com/3rianO3yrne/SwiftMoon.git", from: "1.0.0")
 ```
 
 Then add "SwiftMoon" as a dependency for your target:
