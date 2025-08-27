@@ -31,7 +31,7 @@ extension SwiftMoon {
         }
 
         public static func getLunarMonthPeriodDateComponents(
-            direction: Calendar.SearchDirection = .forward
+            direction: Calendar.SearchDirection
         )
             -> DateComponents
         {
@@ -76,7 +76,7 @@ extension SwiftMoon {
 
         static func getIterationDate(
             startingPeriod: Date,
-            direction: Calendar.SearchDirection = .forward
+            direction: Calendar.SearchDirection
         )
             -> Date
         {
@@ -127,6 +127,8 @@ extension SwiftMoon {
                 ? newMoonDateIteration > selectedDate
                 : newMoonDateIteration < selectedDate
             {
+                
+                
                 let moonStartDate: Date = Calendar(identifier: .gregorian)
                     .date(
                         byAdding: lunarMonthComponent,
@@ -154,6 +156,8 @@ extension SwiftMoon {
                     isdirectionBackwards
                     ? -1 : 1
             }
+            
+            print(lunations)
 
             return lunations
 
