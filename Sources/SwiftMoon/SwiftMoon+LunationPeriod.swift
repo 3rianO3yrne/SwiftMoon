@@ -30,7 +30,7 @@ extension SwiftMoon {
 
         }
 
-        public static func getLunarMonthPeriodDateComponents(
+        static func getLunarMonthPeriodDateComponents(
             direction: Calendar.SearchDirection = .forward
         )
             -> DateComponents
