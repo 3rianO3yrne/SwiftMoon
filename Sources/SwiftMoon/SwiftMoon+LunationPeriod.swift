@@ -30,7 +30,7 @@ extension SwiftMoon {
 
         }
 
-        static func getLunarMonthPeriodDateComponents(
+        public static func getLunarMonthPeriodDateComponents(
             direction: Calendar.SearchDirection = .forward
         )
             -> DateComponents
@@ -112,18 +112,18 @@ extension SwiftMoon {
 
             var lunations: [LunationPeriod] = []
 
-            let isdirectionBackwards: Bool =
+            let isDirectionBackwards: Bool =
                 newMoonDateIteration > selectedDate
 
             let direction: Calendar.SearchDirection =
-                isdirectionBackwards ? .backward : .forward
+                isDirectionBackwards ? .backward : .forward
 
             let lunarMonthComponent: DateComponents =
                 LunationPeriod.getLunarMonthPeriodDateComponents(
                     direction: direction
                 )
 
-            while isdirectionBackwards
+            while isDirectionBackwards
                 ? newMoonDateIteration > selectedDate
                 : newMoonDateIteration < selectedDate
             {
@@ -136,9 +136,9 @@ extension SwiftMoon {
                 let lunation: SwiftMoon.LunationPeriod =
                     LunationPeriod(
                         lunationNumber: lunationCount,
-                        lunationStartDate: isdirectionBackwards
+                        lunationStartDate: isDirectionBackwards
                             ? moonStartDate : newMoonDateIteration,
-                        lunationEndDate: isdirectionBackwards
+                        lunationEndDate: isDirectionBackwards
                             ? newMoonDateIteration : moonStartDate
                     )
 
@@ -146,12 +146,12 @@ extension SwiftMoon {
 
                 newMoonDateIteration = getIterationDate(
                     startingPeriod: newMoonDateIteration,
-                    direction: isdirectionBackwards
+                    direction: isDirectionBackwards
                         ? .backward : .forward
                 )
 
                 lunationCount +=
-                    isdirectionBackwards
+                    isDirectionBackwards
                     ? -1 : 1
             }
 
