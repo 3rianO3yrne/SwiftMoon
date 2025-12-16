@@ -12,13 +12,23 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "SwiftMoon",
-            targets: ["SwiftMoon"]),
+            targets: ["SwiftMoon"]
+        )
     ],
+    dependencies: [],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SwiftMoon"),
+            name: "SwiftMoon",
+            dependencies: ["AstronomyEngine"]
+        ),
+        .target(
+            name: "AstronomyEngine",
+            dependencies: [],
+            publicHeadersPath: "include"
+
+        ),
         .testTarget(
             name: "SwiftMoonTests",
             dependencies: ["SwiftMoon"]
