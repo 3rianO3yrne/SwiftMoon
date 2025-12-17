@@ -1,6 +1,6 @@
 //
-//  LunationPeriodTests.swift
-//  PenobscotNamesOfTheMoons
+//  SwiftMoonLegacyTests.swift
+//  SwiftMoon
 //
 //  Created by Brian O’Byrne on 11/29/24.
 //
