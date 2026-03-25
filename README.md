@@ -4,7 +4,7 @@ SwiftMoon is a Swift package for calculating the current lunation period, which 
 
 ## Features
 - Calculate the current lunation period, lunation start date, and lunation end date
-- Written in pure Swift
+- Powered by the [Astronomy Engine](https://github.com/cosinekitty/astronomy) C library for high-precision calculations
 
 ## Installation
 Add SwiftMoon to your `Package.swift` dependencies:
@@ -46,7 +46,7 @@ SwiftMoonLegacy is the original lib, now deprecated, but with no plans for remov
 
 
 ```swift
-import SwiftMoonLegacy
+import SwiftMoon
 
 // Example: Get the current lunation period
 let lunations = SwiftMoonLegacy.getMoonForDate(date: Date())
