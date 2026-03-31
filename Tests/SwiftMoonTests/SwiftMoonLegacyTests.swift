@@ -1,6 +1,6 @@
 //
-//  LunationPeriodTests.swift
-//  PenobscotNamesOfTheMoons
+//  SwiftMoonLegacyTests.swift
+//  SwiftMoon
 //
 //  Created by Brian O’Byrne on 11/29/24.
 //
@@ -10,7 +10,7 @@ import Testing
 
 @testable import SwiftMoon
 
-struct LunationPeriodTests {
+struct SwiftMoonLegacyTests {
 
     @available(macOS 10.15, *)
     @Test func createLunationPeriod() async throws {
@@ -20,7 +20,7 @@ struct LunationPeriodTests {
         let startDate: Date? = formatter.date(from: "2020-01-06 18:14:00")
         let endDate: Date? = formatter.date(from: "2020-02-06 18:14:00")
 
-        let lunation: SwiftMoon.LunationPeriod = SwiftMoon.LunationPeriod(
+        let lunation: SwiftMoonLegacy.LunationPeriod = SwiftMoonLegacy.LunationPeriod(
             lunationNumber: 1,
             lunationStartDate: startDate!,
             lunationEndDate: endDate!
@@ -32,7 +32,7 @@ struct LunationPeriodTests {
     }
     @available(macOS 10.15, *)
     @Test func lunationPeriodStartDate() async throws {
-        let lunationStartDate: Date = SwiftMoon.LunationPeriod.getStartDate()
+        let lunationStartDate: Date = SwiftMoonLegacy.LunationPeriod.getStartDate()
         let formatter: DateFormatter = DateFormatter()
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -42,7 +42,7 @@ struct LunationPeriodTests {
     }
     @available(macOS 10.15, *)
     @Test func getLunarPeriod() async throws {
-        let lunarPeriod: Double = SwiftMoon.LunationPeriod.getLunarPeriod()
+        let lunarPeriod: Double = SwiftMoonLegacy.LunationPeriod.getLunarPeriod()
         let expectedPeriod: Double = 29.53059
 
         #expect(lunarPeriod == expectedPeriod)
@@ -54,11 +54,11 @@ struct LunationPeriodTests {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let startingPeriod: Date? = formatter.date(from: "2000-01-06 18:14:00")
 
-        let backwardIteration: Date = SwiftMoon.LunationPeriod.getIterationDate(
+        let backwardIteration: Date = SwiftMoonLegacy.LunationPeriod.getIterationDate(
             startingPeriod: startingPeriod!,
             direction: .backward
         )
-        let futureIteration: Date = SwiftMoon.LunationPeriod.getIterationDate(
+        let futureIteration: Date = SwiftMoonLegacy.LunationPeriod.getIterationDate(
             startingPeriod: startingPeriod!,
             direction: .forward
         )
@@ -72,12 +72,12 @@ struct LunationPeriodTests {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let date: Date? = formatter.date(from: "2024-05-06 18:14:00")
 
-        let lunationPeriods: [SwiftMoon.LunationPeriod] = SwiftMoon
+        let lunationPeriods: [SwiftMoonLegacy.LunationPeriod] = SwiftMoonLegacy
             .LunationPeriod.getLunationPeriods(
                 currentDate: date!
             )
 
-        let lunationPeriod: SwiftMoon.LunationPeriod = lunationPeriods.last!
+        let lunationPeriod: SwiftMoonLegacy.LunationPeriod = lunationPeriods.last!
 
         #expect(lunationPeriods.count > 1)
         #expect(lunationPeriod.lunationStartDate <= date!)
@@ -99,12 +99,12 @@ struct LunationPeriodTests {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let currentDate = formatter.date(from: "2025-08-23 07:07:00")
 
-        let lunationPeriods: [SwiftMoon.LunationPeriod] = SwiftMoon
+        let lunationPeriods: [SwiftMoonLegacy.LunationPeriod] = SwiftMoonLegacy
             .LunationPeriod.getLunationPeriods(
                 currentDate: currentDate!
             )
 
-        let lunationPeriod: SwiftMoon.LunationPeriod = lunationPeriods.last!
+        let lunationPeriod: SwiftMoonLegacy.LunationPeriod = lunationPeriods.last!
 
         #expect(lunationPeriod.lunationNumber == 316)
         #expect(lunationPeriod.lunationStartDate <= currentDate!)
@@ -131,23 +131,23 @@ struct LunationPeriodTests {
             from: "2025-08-23 20:57:45"
         )
 
-        var lunationPeriods: [SwiftMoon.LunationPeriod] = SwiftMoon
+        var lunationPeriods: [SwiftMoonLegacy.LunationPeriod] = SwiftMoonLegacy
             .LunationPeriod.getLunationPeriods(
                 currentDate: almostExactEndDate!
             )
 
-        let lunationPeriod1: SwiftMoon.LunationPeriod = lunationPeriods.last!
+        let lunationPeriod1: SwiftMoonLegacy.LunationPeriod = lunationPeriods.last!
 
         #expect(lunationPeriod1.lunationNumber == 316)
         #expect(lunationPeriod1.lunationStartDate <= almostExactEndDate!)
         #expect(lunationPeriod1.lunationEndDate > almostExactEndDate!)
 
-        lunationPeriods += SwiftMoon
+        lunationPeriods += SwiftMoonLegacy
             .LunationPeriod.getLunationPeriods(
                 currentDate: largerByOneSecondEndDate!
             )
 
-        let lunationPeriod2: SwiftMoon.LunationPeriod = lunationPeriods.last!
+        let lunationPeriod2: SwiftMoonLegacy.LunationPeriod = lunationPeriods.last!
 
         #expect(
             lunationPeriod2.lunationStartDate == lunationPeriod1.lunationEndDate
